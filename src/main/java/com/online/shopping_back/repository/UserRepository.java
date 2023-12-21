@@ -8,7 +8,7 @@ import com.online.shopping_back.entity.UserEntity;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     
-    boolean existsByUserEmail(String userEmail);
+    boolean existsByEmail(String email);
 
-    UserEntity findByUserEmail(String userEmail);    
+    UserEntity findByEmail(String email);    
 }
