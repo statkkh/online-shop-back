@@ -7,4 +7,5 @@ import com.online.shopping_back.dto.response.auth.SignUpResponseDto;
 
 public interface AuthService {
 
+    public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto);
 }
