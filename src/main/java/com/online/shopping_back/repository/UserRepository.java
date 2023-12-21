@@ -9,6 +9,10 @@ import com.online.shopping_back.entity.UserEntity;
 public interface UserRepository extends JpaRepository<UserEntity, Integer>{
     
     boolean existsByEmail(String email);
+    boolean existsByNickname(String nickname);
+    boolean existsByTelNumber(String telNumber);
 
     UserEntity findByEmail(String email);    
+
+    
 }
