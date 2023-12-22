@@ -3,10 +3,13 @@ package com.online.shopping_back.service.implement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import com.online.shopping_back.dto.request.auth.SignInRequestDto;
 import com.online.shopping_back.dto.request.auth.SignUpRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
+import com.online.shopping_back.dto.response.auth.SignInResponseDto;
 import com.online.shopping_back.dto.response.auth.SignUpResponseDto;
 import com.online.shopping_back.entity.UserEntity;
+import com.online.shopping_back.provider.JwtProvider;
 import com.online.shopping_back.service.AuthService;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -55,6 +58,35 @@ public class AuthServiceImplement implements AuthService {
             return ResponseDto.databaseError();
         }
         return SignUpResponseDto.success();
+    }
+
+    private final JwtProvider jwtProvider;
+
+    @Override
+    public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+
+        String token = null;
+
+        try {
+
+            String email = dto.getEmail();
+            
+            UserEntity userEntity = userRepository.findByEmail(email);
+            if (userEntity == null) return SignInResponseDto.signInFailed();
+            
+            String password = dto.getPassword();
+            String encodedPassword = userEntity.getPassword();
+
+            boolean isMatched = passwordEncoder.matches(password, encodedPassword);
+            if (!isMatched) return SignInResponseDto.signInFailed();
+            
+            token = jwtProvider.create(email);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return SignInResponseDto.success(token);
     }
     
 
