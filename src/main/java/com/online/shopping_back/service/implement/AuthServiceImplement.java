@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 @RequiredArgsConstructor
 public class AuthServiceImplement implements AuthService {
     
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
