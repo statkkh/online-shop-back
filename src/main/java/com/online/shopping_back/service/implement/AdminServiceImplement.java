@@ -1,7 +1,9 @@
 package com.online.shopping_back.service.implement;
 
+import com.online.shopping_back.dto.request.admin.PatchAdminRequestDto;
 import com.online.shopping_back.dto.request.admin.PostAdminRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
+import com.online.shopping_back.dto.response.admin.PatchAdminResponseDto;
 import com.online.shopping_back.dto.response.admin.PostAdminResponseDto;
 import com.online.shopping_back.entity.AdminEntity;
 import com.online.shopping_back.repository.AdminRepository;
@@ -37,5 +39,26 @@ public class AdminServiceImplement implements AdminService{
             return ResponseDto.databaseError();
         }
         return PostAdminResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PatchAdminResponseDto> patchAdmin(PatchAdminRequestDto dto, String email) {
+
+        try {
+            
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return PatchAdminResponseDto.notExistUser();
+
+            AdminEntity adminEntity = adminRepository.findByManagerEmail(email);
+            if(adminEntity == null) return PatchAdminResponseDto.notExistUser();
+
+            adminEntity.patchAdmin(dto);
+            adminRepository.save(adminEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PatchAdminResponseDto.success();
     }
 }
