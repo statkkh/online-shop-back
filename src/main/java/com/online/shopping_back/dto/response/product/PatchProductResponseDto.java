@@ -17,7 +17,7 @@ public class PatchProductResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<PatchProductResponseDto> success(){
-        PatchProductResponseDto result = new PatchProductResponseDto(ResponseMessage.SUCCESS, ResponseMessage.SUCCESS);
+        PatchProductResponseDto result = new PatchProductResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
