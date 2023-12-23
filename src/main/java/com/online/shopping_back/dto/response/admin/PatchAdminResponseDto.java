@@ -26,5 +26,10 @@ public class PatchAdminResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
+    public static ResponseEntity<ResponseDto> notExistManager(){
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_MANAGER, ResponseMessage.NOT_EXIST_MANAGER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }
+
     
 }
