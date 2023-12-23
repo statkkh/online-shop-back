@@ -10,14 +10,14 @@ import com.online.shopping_back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class PatchProductResponesDto extends ResponseDto{
+public class PatchProductResponseDto extends ResponseDto{
     
-    private PatchProductResponesDto(String code, String messsage){
+    private PatchProductResponseDto(String code, String messsage){
         super(code, messsage);
     }
 
-    public static ResponseEntity<PatchProductResponesDto> success(){
-        PatchProductResponesDto result = new PatchProductResponesDto(ResponseMessage.SUCCESS, ResponseMessage.SUCCESS);
+    public static ResponseEntity<PatchProductResponseDto> success(){
+        PatchProductResponseDto result = new PatchProductResponseDto(ResponseMessage.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
