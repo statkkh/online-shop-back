@@ -17,7 +17,7 @@ public class PostProductResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<PostProductResponseDto> success(){
-        PostProductResponseDto result = new PostProductResponseDto(ResponseMessage.SUCCESS, ResponseMessage.SUCCESS);
+        PostProductResponseDto result = new PostProductResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
