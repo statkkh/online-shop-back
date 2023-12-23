@@ -3,6 +3,7 @@ package com.online.shopping_back.service.implement;
 import com.online.shopping_back.dto.request.admin.PatchAdminRequestDto;
 import com.online.shopping_back.dto.request.admin.PostAdminRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
+import com.online.shopping_back.dto.response.admin.GetAdminResponseDto;
 import com.online.shopping_back.dto.response.admin.PatchAdminResponseDto;
 import com.online.shopping_back.dto.response.admin.PostAdminResponseDto;
 import com.online.shopping_back.entity.AdminEntity;
@@ -22,6 +23,25 @@ public class AdminServiceImplement implements AdminService{
     private final UserRepository userRepository;
 
     private final AdminRepository adminRepository;
+
+    @Override
+    public ResponseEntity<? super GetAdminResponseDto> getAdmin(String email) {
+        
+        AdminEntity adminEntity = null;
+
+        try {
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return GetAdminResponseDto.notExistUser();
+
+            adminEntity = adminRepository.findByManagerEmail(email);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return GetAdminResponseDto.success(adminEntity);
+    }
 
     @Override
     public ResponseEntity<? super PostAdminResponseDto> postAdmin(PostAdminRequestDto dto, String email,Integer userNumber) {
@@ -50,7 +70,7 @@ public class AdminServiceImplement implements AdminService{
             if(!existedUser) return PatchAdminResponseDto.notExistUser();
 
             AdminEntity adminEntity = adminRepository.findByManagerEmail(email);
-            if(adminEntity == null) return PatchAdminResponseDto.notExistUser();
+            if(adminEntity == null) return PatchAdminResponseDto.notExistManager();
 
             adminEntity.patchAdmin(dto);
             adminRepository.save(adminEntity);
@@ -61,4 +81,6 @@ public class AdminServiceImplement implements AdminService{
         }
         return PatchAdminResponseDto.success();
     }
+
+
 }
