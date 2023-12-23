@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping_back.dto.request.product.PatchProductRequestDto;
 import com.online.shopping_back.dto.request.product.PostProductRequestDto;
-import com.online.shopping_back.dto.response.product.DeleteProductResponseDto;
-import com.online.shopping_back.dto.response.product.PatchProductResponseDto;
+
+import com.online.shopping_back.dto.response.product.GetProductListResponseDto; 
 import com.online.shopping_back.dto.response.product.PostProductResponseDto;
+import com.online.shopping_back.dto.response.product.PatchProductResponseDto;
+import com.online.shopping_back.dto.response.product.DeleteProductResponseDto;
+
 import com.online.shopping_back.service.ProductService;
 
 import jakarta.validation.Valid;
@@ -29,6 +32,16 @@ import lombok.RequiredArgsConstructor;
 public class ProductController {
     
     private final ProductService productService;
+
+
+    @GetMapping("/{userNumber}")
+    ResponseEntity<? super GetProductListResponseDto> getProductList(
+        @AuthenticationPrincipal String managerEmail,
+        @PathVariable("userNumber") Integer userNumber
+    ){
+        ResponseEntity<? super GetProductListResponseDto> response = productService.getProductList(managerEmail, userNumber);
+        return response;
+    }
 
     @PostMapping("/{userNumber}")
     public ResponseEntity<? super PostProductResponseDto> postProduct(
