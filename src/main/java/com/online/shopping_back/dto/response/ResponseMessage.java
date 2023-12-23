@@ -14,7 +14,9 @@ public interface  ResponseMessage {
 
     String NO_PERMISSION = " Do not have permission.";
         
-    String NOT_EXIST_USER = "User does not exist.";
+    String NOT_EXIST_USER = "This user does not exist.";
+    String NOT_EXIST_MANAGER = "This manager does not exist.";
+
     String NOT_EXIST_SHOP = "This shop does not exist.";
     String NOT_EXIST_PRODUCT = "Product does not exist.";
     String NOT_EXIST_ORDER = "Order does not exist.";
