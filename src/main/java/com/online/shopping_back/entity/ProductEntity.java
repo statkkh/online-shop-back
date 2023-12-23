@@ -46,5 +46,6 @@ public class ProductEntity {
     public void patchProduct(PatchProductRequestDto dto){
         this.productName = dto.getProductName();
         this.price = dto.getPrice();
+        this.registerDate = LocalDateTime.now(); 
     }
 }
