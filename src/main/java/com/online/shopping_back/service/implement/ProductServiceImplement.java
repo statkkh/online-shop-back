@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.online.shopping_back.dto.request.product.PatchProductRequestDto;
 import com.online.shopping_back.dto.request.product.PostProductRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
+import com.online.shopping_back.dto.response.product.DeleteProductResponseDto;
 import com.online.shopping_back.dto.response.product.PatchProductResponseDto;
 import com.online.shopping_back.dto.response.product.PostProductResponseDto;
 import com.online.shopping_back.entity.ProductEntity;
@@ -67,6 +68,29 @@ public class ProductServiceImplement implements ProductService{
             return ResponseDto.databaseError();
         }
         return PatchProductResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteProductResponseDto> deleteProduct(String managerEmail, Integer userNumber,Integer productNumber) {
+        
+        try {
+            boolean existedUser = userRepository.existsByEmail(managerEmail);
+            if(!existedUser) return DeleteProductResponseDto.notExistUser();
+
+            boolean existedManager = adminRepository.existsByManagerEmail(managerEmail);
+            if(!existedManager) return DeleteProductResponseDto.notExistManager();
+
+            ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
+            if(productEntity == null) return DeleteProductResponseDto.notExistProduct();
+
+            productRepository.delete(productEntity);
+            
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteProductResponseDto.success();
     }
 
     
