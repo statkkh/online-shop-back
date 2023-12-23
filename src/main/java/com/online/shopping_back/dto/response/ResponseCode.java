@@ -15,6 +15,8 @@ public interface   ResponseCode {
     String NO_PERMISSION = "NP";
 
     String NOT_EXIST_USER = "NU";
+    String NOT_EXIST_MANAGER = "NM";
+    
     String NOT_EXIST_SHOP = "NS";
     String NOT_EXIST_PRODUCT = "NP";
     String NOT_EXIST_ORDER = "NO";
