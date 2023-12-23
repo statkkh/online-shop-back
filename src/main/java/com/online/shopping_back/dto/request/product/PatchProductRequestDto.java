@@ -18,6 +18,6 @@ public class PatchProductRequestDto {
     @NotBlank
     private String productName;
 
-    @NotBlank
+    @NotNull
     private int price;    
 }
