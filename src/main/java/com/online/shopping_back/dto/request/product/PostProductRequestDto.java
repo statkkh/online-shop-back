@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -14,6 +15,6 @@ public class PostProductRequestDto {
     @NotBlank
     private String productName;
 
-    @NotBlank
+    @NotNull
     private int price;
 }
