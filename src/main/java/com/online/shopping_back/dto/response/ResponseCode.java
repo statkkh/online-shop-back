@@ -22,6 +22,6 @@ public interface   ResponseCode {
     String NOT_EXIST_ORDER = "NO";
     String NOT_EXIST_CART = "NC";
     String NOT_FOUND_ORDER_PRODUCT = "NFOP";
- 
+
     String DATABASE_ERROR = "DBE";
 }
