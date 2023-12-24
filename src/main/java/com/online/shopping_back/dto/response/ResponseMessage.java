@@ -21,6 +21,7 @@ public interface  ResponseMessage {
     String NOT_FOUND_PRODUCT = "This Product is not found.";
     String NOT_EXIST_ORDER = "Order does not exist.";
     String NOT_EXIST_CART = "Cart does not exist.";
+    String NOT_FOUND_ORDER_PRODUCT = "Order Product not found.";
 
     String DATABASE_ERROR = "Database error.";    
 }
