@@ -16,9 +16,9 @@ import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name="order")
-@Table(name="order")
-public class OrderEntity {
+@Entity(name="buy")
+@Table(name="buy")
+public class BuyEntity {
 
     @Id
     private int orderNumber;   
@@ -28,7 +28,7 @@ public class OrderEntity {
     private LocalDateTime orderDatetime;
     private int orderTotalPrice;
 
-    public OrderEntity(PostOrderRequestDto dto, Integer userNumber){
+    public BuyEntity(PostOrderRequestDto dto, Integer userNumber){
         this.userNumber = userNumber;
         this.productName = dto.getProductName();
         
