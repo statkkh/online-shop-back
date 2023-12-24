@@ -3,10 +3,15 @@ package com.online.shopping_back.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
+
+import com.online.shopping_back.dto.request.orderProduct.PatchOrderProductRequestDto;
+import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
+
+import com.online.shopping_back.dto.response.orderProduct.PatchOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PostOrderProductResponseDto;
 import com.online.shopping_back.dto.response.product.PatchProductResponseDto;
+
 import com.online.shopping_back.entity.BuyEntity;
 import com.online.shopping_back.entity.OrderProductEntity;
 import com.online.shopping_back.entity.ProductEntity;
@@ -54,6 +59,33 @@ public class OrderProductServiceImplement implements OrderProductService{
             return ResponseDto.databaseError();
         }
         return PostOrderProductResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(PatchOrderProductRequestDto dto,
+            String email, Integer userNumber, Integer orderNumber, Integer productNumber) {
+        
+        try {
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return PatchOrderProductResponseDto.notExistUser();
+
+            ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
+            if(productEntity == null) return PatchOrderProductResponseDto.notExistProduct();
+
+            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
+            if(!existedOrder) return PatchOrderProductResponseDto.notExistOrder();
+
+            OrderProductEntity orderProductEntity = orderProductRepository.findByOrderProductNumber(dto.getOrderProductNumber());
+            if(orderProductEntity == null) return PatchOrderProductResponseDto.notExistOrderProduct();
+
+            orderProductEntity.patchOrderProduct(dto);
+            orderProductRepository.save(orderProductEntity);            
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }        
+        return PatchOrderProductResponseDto.success();        
     }
 
     
