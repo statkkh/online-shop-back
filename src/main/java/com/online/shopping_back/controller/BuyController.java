@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
 import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
+import com.online.shopping_back.dto.response.order.PatchOrderResponseDto;
 import com.online.shopping_back.dto.response.order.PostOrderResponseDto;
 import com.online.shopping_back.service.BuyService;
 
@@ -45,7 +47,15 @@ public class BuyController {
     }
 
 
-
+    @PatchMapping("/{userNumber}")
+    ResponseEntity<? super PatchOrderResponseDto> patchBuy(
+        @RequestBody @Valid PatchOrderRequestDto dto,
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber        
+    ){
+        ResponseEntity<? super PatchOrderResponseDto>  response = buyService.patchBuy(dto, email, userNumber);
+        return response;
+    }
 
 
 
