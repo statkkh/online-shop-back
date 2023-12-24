@@ -7,6 +7,7 @@ import com.online.shopping_back.dto.response.ResponseDto;
 
 import com.online.shopping_back.dto.request.orderProduct.PatchOrderProductRequestDto;
 import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
+import com.online.shopping_back.dto.response.orderProduct.DeleteOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.GetOrderProductListResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PatchOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PostOrderProductResponseDto;
@@ -54,6 +55,7 @@ public class OrderProductServiceImplement implements OrderProductService{
             if(!existedOrder) return PostOrderProductResponseDto.notExistOrder();
 
             orderProductEntities = orderProductRepository.findByUserNumber(userNumber);
+
             
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -110,6 +112,33 @@ public class OrderProductServiceImplement implements OrderProductService{
             return ResponseDto.databaseError();
         }        
         return PatchOrderProductResponseDto.success();        
+    }
+
+    @Override
+    public ResponseEntity<? super DeleteOrderProductResponseDto> deleteOrderProduct(String email, Integer userNumber,
+            Integer orderNumber, Integer productNumber, Integer orderProductNumber) {
+        
+        try {
+
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return DeleteOrderProductResponseDto.notExistUser();
+
+            ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
+            if(productEntity == null) return DeleteOrderProductResponseDto.notExistProduct();
+
+            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
+            if(!existedOrder) return DeleteOrderProductResponseDto.notExistOrder();       
+            
+            OrderProductEntity orderProductEntity = orderProductRepository.findByOrderProductNumber(orderProductNumber);
+            if(orderProductEntity == null) return DeleteOrderProductResponseDto.notExistOrderProduct();
+
+            orderProductRepository.delete(orderProductEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return DeleteOrderProductResponseDto.success();
     }
 
 

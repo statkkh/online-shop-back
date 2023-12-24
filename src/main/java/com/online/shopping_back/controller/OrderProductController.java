@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping_back.dto.request.orderProduct.PatchOrderProductRequestDto;
 import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
+import com.online.shopping_back.dto.response.orderProduct.DeleteOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.GetOrderProductListResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PatchOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PostOrderProductResponseDto;
@@ -32,7 +33,7 @@ public class OrderProductController{
     private final OrderProductService orderProductService;
 
     @GetMapping("/{userNumber}/{productNumber}/{orderNumber}")
-    ResponseEntity< ? super GetOrderProductListResponseDto> getOrderProductList(
+    public ResponseEntity< ? super GetOrderProductListResponseDto> getOrderProductList(
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
         @PathVariable("productNumber") Integer productNumber,
@@ -56,7 +57,7 @@ public class OrderProductController{
     }
 
     @PatchMapping("/{userNumber}/{productNumber}/{orderNumber}")
-    ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(
+    public ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(
         @RequestBody @Valid PatchOrderProductRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
@@ -66,5 +67,17 @@ public class OrderProductController{
         ResponseEntity<? super PatchOrderProductResponseDto>  response = orderProductService.patchOrderProduct(dto, email, userNumber, orderNumber, productNumber);
         return response;
     }   
+
+    @DeleteMapping("/{userNumber}/{productNumber}/{orderNumber}/{orderProductNumber}")
+    public ResponseEntity<? super  DeleteOrderProductResponseDto> deleteOrderProduct(
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber,
+        @PathVariable("productNumber") Integer productNumber,
+        @PathVariable("orderNumber") Integer orderNumber,
+        @PathVariable("orderProductNumber") Integer orderProductNumber    
+    ){
+        ResponseEntity<? super  DeleteOrderProductResponseDto> response = orderProductService.deleteOrderProduct(email, userNumber, orderNumber, productNumber, orderProductNumber);
+        return response;
+    }
 
 }
