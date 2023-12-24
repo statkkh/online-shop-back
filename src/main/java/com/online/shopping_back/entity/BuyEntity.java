@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
 import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
 
 @Getter
@@ -31,7 +32,10 @@ public class BuyEntity {
     public BuyEntity(PostOrderRequestDto dto, Integer userNumber){
         this.userNumber = userNumber;
         this.productName = dto.getProductName();
-        
         this.orderDatetime = LocalDateTime.now(); 
+    }
+
+    public void patchBuy(PatchOrderRequestDto dto){
+        this.productName = dto.getProductName();
     }
 }
