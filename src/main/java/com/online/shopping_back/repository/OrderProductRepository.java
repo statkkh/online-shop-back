@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface OrderProductRepository extends JpaRepository<OrderProductEntity, Integer>{
 
-    List<OrderProductEntity> existsByUserNumber(Integer userNumber);
+    List<OrderProductEntity> findByUserNumber(Integer userNumber);
 
     OrderProductEntity  findByOrderProductNumber(Integer  orderProductNumber);
 } 
