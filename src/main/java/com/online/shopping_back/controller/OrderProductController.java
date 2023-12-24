@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.online.shopping_back.dto.request.orderProduct.PatchOrderProductRequestDto;
 import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
+import com.online.shopping_back.dto.response.orderProduct.GetOrderProductListResponseDto;
+import com.online.shopping_back.dto.response.orderProduct.PatchOrderProductResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PostOrderProductResponseDto;
 import com.online.shopping_back.service.OrderProductService;
 
@@ -28,6 +31,18 @@ public class OrderProductController{
     
     private final OrderProductService orderProductService;
 
+    @GetMapping("/{userNumber}/{productNumber}/{orderNumber}")
+    ResponseEntity< ? super GetOrderProductListResponseDto> getOrderProductList(
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber,
+        @PathVariable("productNumber") Integer productNumber,
+        @PathVariable("orderNumber") Integer orderNumber        
+    ){
+        ResponseEntity< ? super GetOrderProductListResponseDto>  response = orderProductService.getOrderProductList(email, userNumber, productNumber, orderNumber);
+        return response;
+    }
+
+
     @PostMapping("/{userNumber}/{productNumber}/{orderNumber}")
     public ResponseEntity<? super PostOrderProductResponseDto> postOrderProduct(
         @RequestBody @Valid PostOrderProductRequestDto dto,
@@ -39,5 +54,17 @@ public class OrderProductController{
         ResponseEntity<? super PostOrderProductResponseDto>  response = orderProductService.postOrderProduct(dto, email, userNumber, orderNumber, productNumber);
         return response;
     }
+
+    @PatchMapping("/{userNumber}/{productNumber}/{orderNumber}")
+    ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(
+        @RequestBody @Valid PatchOrderProductRequestDto dto,
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber,
+        @PathVariable("productNumber") Integer productNumber,
+        @PathVariable("orderNumber") Integer orderNumber        
+    ){
+        ResponseEntity<? super PatchOrderProductResponseDto>  response = orderProductService.patchOrderProduct(dto, email, userNumber, orderNumber, productNumber);
+        return response;
+    }   
 
 }
