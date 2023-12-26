@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 
 import java.time.LocalDateTime;
 
+import com.online.shopping_back.dto.request.pay.PatchPayRequestDto;
 import com.online.shopping_back.dto.request.pay.PostPayRequestDto;
 
 @Getter
@@ -37,7 +38,7 @@ public class PayEntity {
         this.payStatus = dto.getPayStatus();
     }
     
-    public void patchPay(){
-        
+    public void patchPay(PatchPayRequestDto dto){
+        this.payStatus = dto.getPayStatus();
     }
 }
