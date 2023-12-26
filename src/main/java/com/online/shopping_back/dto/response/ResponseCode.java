@@ -17,6 +17,7 @@ public interface   ResponseCode {
     String NOT_EXIST_USER = "NU";
     String NOT_EXIST_MANAGER = "NM";
     
+    String NOT_FOUND_PAY = "NFPAY"; 
     String NOT_EXIST_SHOP = "NS";
     String NOT_FOUND_PRODUCT = "NFP";
     String NOT_EXIST_ORDER = "NO";

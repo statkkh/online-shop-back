@@ -17,6 +17,7 @@ public interface  ResponseMessage {
     String NOT_EXIST_USER = "This user does not exist.";
     String NOT_EXIST_MANAGER = "This manager does not exist.";
 
+    String NOT_FOUND_PAY = "This pay not found.";
     String NOT_EXIST_SHOP = "This shop does not exist.";
     String NOT_FOUND_PRODUCT = "This Product is not found.";
     String NOT_EXIST_ORDER = "This order does not exist.";
