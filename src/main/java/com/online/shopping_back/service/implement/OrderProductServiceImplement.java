@@ -52,7 +52,7 @@ public class OrderProductServiceImplement implements OrderProductService{
             if(productEntity == null) return PostOrderProductResponseDto.notExistProduct();
 
             boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
-            
+            if(!existedOrder) return PostOrderProductResponseDto.notExistOrder();
 
             orderProductEntities = orderProductRepository.findByUserNumber(userNumber);
 
