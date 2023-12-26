@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
 import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
+import com.online.shopping_back.dto.response.order.DeleteOrderResponseDto;
+import com.online.shopping_back.dto.response.order.GetOrderResponseDto;
 import com.online.shopping_back.dto.response.order.PatchOrderResponseDto;
 import com.online.shopping_back.dto.response.order.PostOrderResponseDto;
 import com.online.shopping_back.service.BuyService;
@@ -28,9 +30,6 @@ import lombok.RequiredArgsConstructor;
 public class BuyController {
     
     private final BuyService  buyService;
-
-
-
 
 
 
@@ -57,8 +56,15 @@ public class BuyController {
         return response;
     }
 
-
-
+    @DeleteMapping("/{userNumber}/{orderNumber}")
+    public ResponseEntity<? super DeleteOrderResponseDto> deleteBuy(
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber,
+        @PathVariable("orderNumber") Integer orderNumber         
+    ){
+        ResponseEntity<? super DeleteOrderResponseDto> response = buyService.deleteBuy(email, userNumber, orderNumber);
+        return response;
+    }
 
 
     
