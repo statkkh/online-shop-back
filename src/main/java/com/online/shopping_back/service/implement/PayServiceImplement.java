@@ -1,8 +1,10 @@
 package com.online.shopping_back.service.implement;
 
+import com.online.shopping_back.dto.request.pay.PatchPayRequestDto;
 import com.online.shopping_back.dto.request.pay.PostPayRequestDto;
 
 import com.online.shopping_back.dto.response.ResponseDto;
+import com.online.shopping_back.dto.response.pay.PatchPayResponseDto;
 import com.online.shopping_back.dto.response.pay.PostPayResponseDto;
 
 import com.online.shopping_back.entity.PayEntity;
@@ -47,6 +49,30 @@ public class PayServiceImplement implements PayService{
             return ResponseDto.databaseError();
         }
         return PostPayResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<? super PatchPayResponseDto> patchPay(PatchPayRequestDto dto, String email,Integer userNumber, Integer orderNumber) {
+        
+        try {
+            
+            boolean existedUser = userRepository.existsByEmail(email);
+            if(!existedUser) return PatchPayResponseDto.notExistUser();
+
+            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
+            if(!existedOrder) return PatchPayResponseDto.notExistOrder();
+
+            PayEntity  payEntity = payRepository.findByPayNumber(dto.getPayNumber());
+            if(payEntity == null) return PatchPayResponseDto.notExistPay();
+
+            payEntity.patchPay(dto);
+            payRepository.save(payEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return PatchPayResponseDto.success();
     }
 
     
