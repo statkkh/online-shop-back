@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping_back.dto.request.pay.PatchPayRequestDto;
 import com.online.shopping_back.dto.request.pay.PostPayRequestDto;
+import com.online.shopping_back.dto.response.pay.DeletePayResponseDto;
 import com.online.shopping_back.dto.response.pay.PatchPayResponseDto;
 import com.online.shopping_back.dto.response.pay.PostPayResponseDto;
 import com.online.shopping_back.service.PayService;
@@ -50,5 +51,15 @@ public class PayController {
         return response;
     }
 
+    @DeleteMapping("/{userNumber}/{orderNumber}/{payNumber}")
+    public ResponseEntity<? super DeletePayResponseDto> deletePay(
+        @AuthenticationPrincipal String email,
+        @PathVariable("userNumber") Integer userNumber,
+        @PathVariable("orderNumber") Integer orderNumber,
+        @PathVariable("payNumber") Integer payNumber      
+    ){
+        ResponseEntity<? super DeletePayResponseDto> response = payService.deletePay(email, userNumber, orderNumber, payNumber);
+        return response;
+    }
 
 }
