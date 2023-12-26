@@ -26,7 +26,7 @@ public class PayEntity {
     private int userNumber;
     private int orderNumber; 
     private int payPrice;
-    private int payStatus;
+    private boolean  payStatus;
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime payDatetime;  
     
@@ -34,6 +34,7 @@ public class PayEntity {
         this.userNumber = userNumber;
         this.orderNumber = orderNumber;
         this.payDatetime = LocalDateTime.now(); 
+        this.payStatus = dto.getPayStatus();
     }
     
     public void patchPay(){

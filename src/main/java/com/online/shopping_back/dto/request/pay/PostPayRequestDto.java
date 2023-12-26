@@ -12,5 +12,5 @@ import jakarta.validation.constraints.NotNull;
 public class PostPayRequestDto {
     
     @NotNull
-    private boolean payStatus;
+    private Boolean  payStatus;
 }
