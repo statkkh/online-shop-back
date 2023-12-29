@@ -16,3 +16,14 @@
  
 ##### 프로젝트 설치및 실행 방법
 
+##### 개발언어 : Java 17
+##### 개발환경 : SpringBoot 3.2.0, JPA(Spring Data JPA), Spring Security
+
+##### 데이터베이스 : MySQL 
+##### 형상관리 툴 : GitHub
+
+##### 간단소개 : 전반적인 웹의 기본 소양이 되는 쇼핑몰
+
+##### 에러사항 : 통계를 이용해 값을 REST API Get Method에서 이슈가 발생
+
+
