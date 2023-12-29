@@ -1,6 +1,6 @@
 # 온라인 쇼핑몰 프로젝트 - 백엔드
 
-**##Security, Validation, JPA**
+**Security, Validation, JPA**
 
 ## Security : RestAPI에 대해 인증된 유저에게만 특정한 권한도 부여하여 리소스 컨트롤을 가능하게 하기위해서 사용
 
