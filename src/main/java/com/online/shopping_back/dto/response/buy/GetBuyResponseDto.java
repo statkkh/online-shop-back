@@ -1,4 +1,4 @@
-package com.online.shopping_back.dto.response.order;
+package com.online.shopping_back.dto.response.buy;
 
 import java.time.LocalDateTime;
 
@@ -13,25 +13,25 @@ import com.online.shopping_back.entity.BuyEntity;
 import lombok.Getter;
 
 @Getter
-public class GetOrderResponseDto extends ResponseDto{
+public class GetBuyResponseDto extends ResponseDto{
     
-    private int orderNumber;   
+    private int buyNumber;   
     private int userNumber;
     private String productName;    
     private LocalDateTime orderDatetime;
     private int orderTotalPrice;
 
-    private GetOrderResponseDto(String code, String message,BuyEntity buyEntity){
+    private GetBuyResponseDto(String code, String message,BuyEntity buyEntity){
         super(code, message);
-        this.orderNumber = buyEntity.getOrderNumber();
+        this.buyNumber = buyEntity.getBuyNumber();
         this.userNumber = buyEntity.getUserNumber();
         this.productName = buyEntity.getProductName();
-        this.orderDatetime = buyEntity.getOrderDatetime();
+        this.orderDatetime = buyEntity.getBuyDatetime();
         this.orderTotalPrice = buyEntity.getOrderTotalPrice();
     }
 
-    public static ResponseEntity<GetOrderResponseDto> success(BuyEntity buyEntity){
-        GetOrderResponseDto result = new GetOrderResponseDto(ResponseCode.SUCCESS,ResponseMessage.SUCCESS,buyEntity);
+    public static ResponseEntity<GetBuyResponseDto> success(BuyEntity buyEntity){
+        GetBuyResponseDto result = new GetBuyResponseDto(ResponseCode.SUCCESS,ResponseMessage.SUCCESS,buyEntity);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
 
@@ -41,7 +41,7 @@ public class GetOrderResponseDto extends ResponseDto{
     }
     
     public static ResponseEntity<ResponseDto> notExistOrder(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_ORDER, ResponseMessage.NOT_EXIST_ORDER);
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_BUY, ResponseMessage.NOT_EXIST_BUY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }       
 

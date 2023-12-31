@@ -1,4 +1,4 @@
-package com.online.shopping_back.dto.response.order;
+package com.online.shopping_back.dto.response.buy;
 
 
 import lombok.Getter;
@@ -11,14 +11,14 @@ import com.online.shopping_back.dto.response.ResponseDto;
 import com.online.shopping_back.dto.response.ResponseMessage;
 
 @Getter
-public class DeleteOrderResponseDto extends ResponseDto{
+public class DeleteBuyResponseDto extends ResponseDto{
     
-    private DeleteOrderResponseDto(String code, String messsage){
+    private DeleteBuyResponseDto(String code, String messsage){
         super(code, messsage);
     }
 
-    public static ResponseEntity<DeleteOrderResponseDto> success(){
-        DeleteOrderResponseDto result = new DeleteOrderResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+    public static ResponseEntity<DeleteBuyResponseDto> success(){
+        DeleteBuyResponseDto result = new DeleteBuyResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
@@ -28,7 +28,7 @@ public class DeleteOrderResponseDto extends ResponseDto{
     }        
 
     public static ResponseEntity<ResponseDto> notExistOrder(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_ORDER, ResponseMessage.NOT_EXIST_ORDER);
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_BUY, ResponseMessage.NOT_EXIST_BUY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }       
 }

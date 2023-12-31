@@ -1,4 +1,4 @@
-package com.online.shopping_back.dto.response.order;
+package com.online.shopping_back.dto.response.buy;
 
 import com.online.shopping_back.dto.response.ResponseCode;
 import com.online.shopping_back.dto.response.ResponseDto;
@@ -11,14 +11,14 @@ import org.springframework.http.ResponseEntity;
 
 
 @Getter
-public class PostOrderResponseDto extends ResponseDto{
+public class PostBuyResponseDto extends ResponseDto{
     
-    private PostOrderResponseDto(String code, String messsage){
+    private PostBuyResponseDto(String code, String messsage){
         super(code, messsage);
     }
 
-    public static ResponseEntity<PostOrderResponseDto> success(){
-        PostOrderResponseDto result = new PostOrderResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+    public static ResponseEntity<PostBuyResponseDto> success(){
+        PostBuyResponseDto result = new PostBuyResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
