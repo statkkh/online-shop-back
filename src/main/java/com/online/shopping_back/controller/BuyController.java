@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
-import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
-import com.online.shopping_back.dto.response.order.DeleteOrderResponseDto;
-import com.online.shopping_back.dto.response.order.GetOrderResponseDto;
-import com.online.shopping_back.dto.response.order.PatchOrderResponseDto;
-import com.online.shopping_back.dto.response.order.PostOrderResponseDto;
+import com.online.shopping_back.dto.request.buy.PatchBuyRequestDto;
+import com.online.shopping_back.dto.request.buy.PostBuyRequestDto;
+import com.online.shopping_back.dto.response.buy.DeleteBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.GetBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.PatchBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.PostBuyResponseDto;
 import com.online.shopping_back.service.BuyService;
 
 import jakarta.validation.Valid;
@@ -36,33 +36,33 @@ public class BuyController {
 
 
     @PostMapping("/{userNumber}")
-    public ResponseEntity<? super PostOrderResponseDto> postBuy(
-        @RequestBody @Valid PostOrderRequestDto dto,
+    public ResponseEntity<? super PostBuyResponseDto> postBuy(
+        @RequestBody @Valid PostBuyRequestDto dto,
         @AuthenticationPrincipal String managerEmail,
         @PathVariable("userNumber") Integer userNumber        
     ){
-        ResponseEntity<? super PostOrderResponseDto> response = buyService.postBuy(dto, managerEmail, userNumber);
+        ResponseEntity<? super PostBuyResponseDto> response = buyService.postBuy(dto, managerEmail, userNumber);
         return response;
     }
 
 
     @PatchMapping("/{userNumber}")
-    ResponseEntity<? super PatchOrderResponseDto> patchBuy(
-        @RequestBody @Valid PatchOrderRequestDto dto,
+    ResponseEntity<? super PatchBuyResponseDto> patchBuy(
+        @RequestBody @Valid PatchBuyRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber        
     ){
-        ResponseEntity<? super PatchOrderResponseDto>  response = buyService.patchBuy(dto, email, userNumber);
+        ResponseEntity<? super PatchBuyResponseDto>  response = buyService.patchBuy(dto, email, userNumber);
         return response;
     }
 
-    @DeleteMapping("/{userNumber}/{orderNumber}")
-    public ResponseEntity<? super DeleteOrderResponseDto> deleteBuy(
+    @DeleteMapping("/{userNumber}/{buyNumber}")
+    public ResponseEntity<? super DeleteBuyResponseDto> deleteBuy(
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
-        @PathVariable("orderNumber") Integer orderNumber         
+        @PathVariable("buyNumber") Integer buyNumber         
     ){
-        ResponseEntity<? super DeleteOrderResponseDto> response = buyService.deleteBuy(email, userNumber, orderNumber);
+        ResponseEntity<? super DeleteBuyResponseDto> response = buyService.deleteBuy(email, userNumber, buyNumber);
         return response;
     }
 
