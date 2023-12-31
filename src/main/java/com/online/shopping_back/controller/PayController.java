@@ -29,36 +29,36 @@ public class PayController {
     
     private final PayService payService;
 
-    @PostMapping("/{userNumber}/{orderNumber}")
+    @PostMapping("/{userNumber}/{buyNumber}")
     public ResponseEntity<? super  PostPayResponseDto> postPay(
         @RequestBody @Valid PostPayRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
-        @PathVariable("orderNumber") Integer orderNumber
+        @PathVariable("buyNumber") Integer buyNumber
     ){
-        ResponseEntity<? super  PostPayResponseDto>  response = payService.postPay(dto, email, userNumber, orderNumber);
+        ResponseEntity<? super  PostPayResponseDto>  response = payService.postPay(dto, email, userNumber, buyNumber);
         return response;
     }
 
-    @PatchMapping("/{userNumber}/{orderNumber}")
+    @PatchMapping("/{userNumber}/{buyNumber}")
     public ResponseEntity<? super PatchPayResponseDto> patchPay(
         @RequestBody @Valid PatchPayRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
-        @PathVariable("orderNumber") Integer orderNumber        
+        @PathVariable("buyNumber") Integer buyNumber        
     ){
-        ResponseEntity<? super PatchPayResponseDto> response = payService.patchPay(dto, email, userNumber, orderNumber);
+        ResponseEntity<? super PatchPayResponseDto> response = payService.patchPay(dto, email, userNumber, buyNumber);
         return response;
     }
 
-    @DeleteMapping("/{userNumber}/{orderNumber}/{payNumber}")
+    @DeleteMapping("/{userNumber}/{buyNumber}/{payNumber}")
     public ResponseEntity<? super DeletePayResponseDto> deletePay(
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
-        @PathVariable("orderNumber") Integer orderNumber,
+        @PathVariable("buyNumber") Integer buyNumber,
         @PathVariable("payNumber") Integer payNumber      
     ){
-        ResponseEntity<? super DeletePayResponseDto> response = payService.deletePay(email, userNumber, orderNumber, payNumber);
+        ResponseEntity<? super DeletePayResponseDto> response = payService.deletePay(email, userNumber, buyNumber, payNumber);
         return response;
     }
 
