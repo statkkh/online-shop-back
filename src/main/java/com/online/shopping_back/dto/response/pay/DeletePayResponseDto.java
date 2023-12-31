@@ -23,7 +23,7 @@ public class DeletePayResponseDto extends ResponseDto{
     }
 
     public static ResponseEntity<ResponseDto> notExistOrder(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_ORDER, ResponseMessage.NOT_EXIST_ORDER);
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_BUY, ResponseMessage.NOT_EXIST_BUY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }   
     
