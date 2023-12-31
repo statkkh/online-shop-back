@@ -52,7 +52,7 @@ public class BuyProductController{
         @PathVariable("productNumber") Integer productNumber,
         @PathVariable("buyNumber") Integer buyNumber
     ){
-        ResponseEntity<? super PostBuyProductResponseDto>  response = orderProductService.postOrderProduct(dto, email, userNumber, buyNumber, productNumber);
+        ResponseEntity<? super PostBuyProductResponseDto> response = orderProductService.postOrderProduct(dto, email, userNumber, buyNumber, productNumber);
         return response;
     }
 
