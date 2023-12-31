@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
-import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
+import com.online.shopping_back.dto.request.buy.PatchBuyRequestDto;
+import com.online.shopping_back.dto.request.buy.PostBuyRequestDto;
 
 @Getter
 @NoArgsConstructor
@@ -20,22 +20,23 @@ import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
 @Entity(name="buy")
 @Table(name="buy")
 public class BuyEntity {
-
+    
     @Id
-    private int orderNumber;   
+    private int buyNumber;   
     private int userNumber;
     private String productName;
     @Column(columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime orderDatetime;
+    private LocalDateTime buyDatetime;
     private int orderTotalPrice;
 
-    public BuyEntity(PostOrderRequestDto dto, Integer userNumber){
+    public BuyEntity(PostBuyRequestDto dto, Integer userNumber){
         this.userNumber = userNumber;
         this.productName = dto.getProductName();
-        this.orderDatetime = LocalDateTime.now(); 
+        this.buyDatetime = LocalDateTime.now(); 
     }
 
-    public void patchBuy(PatchOrderRequestDto dto){
+    public void patchBuy(PatchBuyRequestDto dto){
         this.productName = dto.getProductName();
     }
+    
 }

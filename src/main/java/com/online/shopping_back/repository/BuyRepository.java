@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface BuyRepository extends JpaRepository<BuyEntity, Integer>{
     
-    boolean existsByOrderNumber(Integer orderNumber);
+    boolean existsByBuyNumber(Integer buyNumber);
 
     // @Query(
     //     value = 
@@ -31,5 +31,5 @@ public interface BuyRepository extends JpaRepository<BuyEntity, Integer>{
     //     nativeQuery = true
     // )
     
-    BuyEntity findByOrderNumber(Integer orderNumber);
+    BuyEntity findByBuyNumber(Integer buyNumber);
 }
