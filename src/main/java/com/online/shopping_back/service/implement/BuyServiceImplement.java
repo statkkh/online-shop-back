@@ -10,7 +10,7 @@ import com.online.shopping_back.dto.response.buy.DeleteBuyResponseDto;
 import com.online.shopping_back.dto.response.buy.GetBuyResponseDto;
 import com.online.shopping_back.dto.response.buy.PatchBuyResponseDto;
 import com.online.shopping_back.dto.response.buy.PostBuyResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.PostOrderProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.PostBuyProductResponseDto;
 import com.online.shopping_back.entity.BuyEntity;
 import com.online.shopping_back.repository.BuyRepository;
 import com.online.shopping_back.repository.UserRepository;
