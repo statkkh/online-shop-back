@@ -32,17 +32,17 @@ public class PayServiceImplement implements PayService{
     private final PayRepository payRepository;
 
     @Override
-    public ResponseEntity<? super PostPayResponseDto> postPay(PostPayRequestDto dto,String email, Integer userNumber,Integer orderNumber) {
+    public ResponseEntity<? super PostPayResponseDto> postPay(PostPayRequestDto dto,String email, Integer userNumber,Integer buyNumber) {
         
         try {
             
             boolean existedUser = userRepository.existsByEmail(email);
             if(!existedUser) return PostPayResponseDto.notExistUser();
 
-            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
-            if(!existedOrder) return PostPayResponseDto.notExistOrder();
+            boolean existedBuy = buyRepository.existsByBuyNumber(buyNumber);
+            if(!existedBuy) return PostPayResponseDto.notExistOrder();
 
-            PayEntity  payEntity = new PayEntity(dto, userNumber, orderNumber);
+            PayEntity  payEntity = new PayEntity(dto, userNumber, buyNumber);
             payRepository.save(payEntity);
 
         } catch (Exception exception) {
@@ -53,15 +53,15 @@ public class PayServiceImplement implements PayService{
     }
 
     @Override
-    public ResponseEntity<? super PatchPayResponseDto> patchPay(PatchPayRequestDto dto, String email,Integer userNumber, Integer orderNumber) {
+    public ResponseEntity<? super PatchPayResponseDto> patchPay(PatchPayRequestDto dto, String email,Integer userNumber, Integer buyNumber) {
         
         try {
             
             boolean existedUser = userRepository.existsByEmail(email);
             if(!existedUser) return PatchPayResponseDto.notExistUser();
 
-            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
-            if(!existedOrder) return PatchPayResponseDto.notExistOrder();
+            boolean existedBuy = buyRepository.existsByBuyNumber(buyNumber);
+            if(!existedBuy) return PatchPayResponseDto.notExistOrder();
 
             PayEntity  payEntity = payRepository.findByPayNumber(dto.getPayNumber());
             if(payEntity == null) return PatchPayResponseDto.notExistPay();
@@ -77,15 +77,15 @@ public class PayServiceImplement implements PayService{
     }
 
     @Override
-    public ResponseEntity<? super DeletePayResponseDto> deletePay(String email, Integer userNumber, Integer orderNumber,Integer payNumber) {
+    public ResponseEntity<? super DeletePayResponseDto> deletePay(String email, Integer userNumber, Integer buyNumber,Integer payNumber) {
         
         try {
 
             boolean existedUser = userRepository.existsByEmail(email);
             if(!existedUser) return PatchPayResponseDto.notExistUser();
 
-            boolean existedOrder = buyRepository.existsByOrderNumber(orderNumber);
-            if(!existedOrder) return PatchPayResponseDto.notExistOrder();         
+            boolean existedBuy = buyRepository.existsByBuyNumber(buyNumber);
+            if(!existedBuy) return PatchPayResponseDto.notExistOrder();         
             
             PayEntity  payEntity = payRepository.findByPayNumber(payNumber);
             if(payEntity == null) return DeletePayResponseDto.notExistPay();

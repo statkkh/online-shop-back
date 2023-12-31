@@ -10,7 +10,7 @@ import com.online.shopping_back.dto.response.pay.PostPayResponseDto;
 
 public interface PayService {
     
-    ResponseEntity<? super PostPayResponseDto> postPay(PostPayRequestDto dto,String email,Integer userNumber, Integer orderNumber);
-    ResponseEntity<? super PatchPayResponseDto> patchPay(PatchPayRequestDto dto, String email,Integer userNumber, Integer orderNumber);  
-    ResponseEntity<? super DeletePayResponseDto> deletePay(String email,Integer userNumber, Integer orderNumber, Integer payNumber);
+    ResponseEntity<? super PostPayResponseDto> postPay(PostPayRequestDto dto,String email,Integer userNumber, Integer buyNumber);
+    ResponseEntity<? super PatchPayResponseDto> patchPay(PatchPayRequestDto dto, String email,Integer userNumber, Integer buyNumber);  
+    ResponseEntity<? super DeletePayResponseDto> deletePay(String email,Integer userNumber, Integer buyNumber, Integer payNumber);
 }
