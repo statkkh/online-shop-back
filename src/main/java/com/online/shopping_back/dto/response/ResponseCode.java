@@ -20,7 +20,7 @@ public interface   ResponseCode {
     String NOT_FOUND_PAY = "NFPAY"; 
     String NOT_EXIST_SHOP = "NS";
     String NOT_FOUND_PRODUCT = "NFP";
-    String NOT_EXIST_BUY = "NO";
+    String NOT_EXIST_BUY = "NB";
     String NOT_EXIST_CART = "NC";
     String NOT_FOUND_ORDER_PRODUCT = "NFOP";
 
