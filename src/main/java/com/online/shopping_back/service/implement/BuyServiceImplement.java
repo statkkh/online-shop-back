@@ -3,13 +3,13 @@ package com.online.shopping_back.service.implement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.online.shopping_back.dto.request.order.PatchOrderRequestDto;
-import com.online.shopping_back.dto.request.order.PostOrderRequestDto;
+import com.online.shopping_back.dto.request.buy.PatchBuyRequestDto;
+import com.online.shopping_back.dto.request.buy.PostBuyRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
-import com.online.shopping_back.dto.response.order.DeleteOrderResponseDto;
-import com.online.shopping_back.dto.response.order.GetOrderResponseDto;
-import com.online.shopping_back.dto.response.order.PatchOrderResponseDto;
-import com.online.shopping_back.dto.response.order.PostOrderResponseDto;
+import com.online.shopping_back.dto.response.buy.DeleteBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.GetBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.PatchBuyResponseDto;
+import com.online.shopping_back.dto.response.buy.PostBuyResponseDto;
 import com.online.shopping_back.dto.response.orderProduct.PostOrderProductResponseDto;
 
 import com.online.shopping_back.entity.BuyEntity;
@@ -31,12 +31,12 @@ public class BuyServiceImplement implements BuyService{
 
 
     @Override
-    public ResponseEntity<? super PostOrderResponseDto> postBuy(PostOrderRequestDto dto,String email, Integer userNumber) {
+    public ResponseEntity<? super PostBuyResponseDto> postBuy(PostBuyRequestDto dto,String email, Integer userNumber) {
         
         try {
             
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PostOrderResponseDto.notExistUser();
+            if(!existedUser) return PostBuyResponseDto.notExistUser();
 
             BuyEntity buyEntity = new BuyEntity(dto, userNumber);
             buyRepository.save(buyEntity);
@@ -46,18 +46,18 @@ public class BuyServiceImplement implements BuyService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return PostOrderResponseDto.success();
+        return PostBuyResponseDto.success();
     }
 
     @Override
-    public ResponseEntity<? super PatchOrderResponseDto> patchBuy(PatchOrderRequestDto dto, String email,Integer userNumber) {
+    public ResponseEntity<? super PatchBuyResponseDto> patchBuy(PatchBuyRequestDto dto, String email,Integer buyNumber) {
         
         try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PatchOrderResponseDto.notExistUser();
+            if(!existedUser) return PatchBuyResponseDto.notExistUser();
             
-            BuyEntity buyEntity = buyRepository.findByOrderNumber(dto.getOrderNumber());
-            if(buyEntity == null) return PatchOrderResponseDto.notExistOrder();
+            BuyEntity buyEntity = buyRepository.findByBuyNumber(dto.getBuyNumber());
+            if(buyEntity == null) return PatchBuyResponseDto.notExistOrder();
 
             buyEntity.patchBuy(dto);
             buyRepository.save(buyEntity);
@@ -66,18 +66,18 @@ public class BuyServiceImplement implements BuyService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return PatchOrderResponseDto.success();
+        return PatchBuyResponseDto.success();
     }
 
     @Override
-    public ResponseEntity<? super DeleteOrderResponseDto> deleteBuy(String email, Integer userNumber,Integer orderNumber) {
+    public ResponseEntity<? super DeleteBuyResponseDto> deleteBuy(String email, Integer buyNumber,Integer orderNumber) {
         
         try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PatchOrderResponseDto.notExistUser();
+            if(!existedUser) return PatchBuyResponseDto.notExistUser();
             
-            BuyEntity buyEntity = buyRepository.findByOrderNumber(orderNumber);
-            if(buyEntity == null) return DeleteOrderResponseDto.notExistOrder();
+            BuyEntity buyEntity = buyRepository.findByBuyNumber(buyNumber);
+            if(buyEntity == null) return DeleteBuyResponseDto.notExistOrder();
 
             buyRepository.delete(buyEntity);
             
@@ -85,7 +85,7 @@ public class BuyServiceImplement implements BuyService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }    
-        return DeleteOrderResponseDto.success();
+        return DeleteBuyResponseDto.success();
     }
     
     
