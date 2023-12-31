@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import com.online.shopping_back.dto.request.orderProduct.PatchOrderProductRequestDto;
-import com.online.shopping_back.dto.request.orderProduct.PostOrderProductRequestDto;
+import com.online.shopping_back.dto.request.buyProduct.PatchBuyProductRequestDto;
+import com.online.shopping_back.dto.request.buyProduct.PostBuyProductRequestDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,26 +20,26 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 @Entity(name="order_product")
 @Table(name="order_product")
-public class OrderProductEntity {
+public class BuyProductEntity {
     
     @Id
-    private int orderProductNumber;
+    private int buyProductNumber;
     private int userNumber;
-    private int orderNumber; 
+    private int buyNumber; 
     private int productNumber;
     private String productName;
     private int productPrice;
 
 
-    public OrderProductEntity(PostOrderProductRequestDto dto, Integer userNumber,Integer orderNumber,Integer productNumber){
+    public BuyProductEntity(PostBuyProductRequestDto dto, Integer userNumber,Integer buyNumber,Integer productNumber){
         this.userNumber = userNumber;
-        this.orderNumber = orderNumber;
+        this.buyNumber = buyNumber;
         this.productNumber = productNumber;
         this.productName = dto.getProductName();
         this.productPrice = dto.getProductPrice();
     }
 
-    public void patchOrderProduct(PatchOrderProductRequestDto dto){
+    public void patchOrderProduct(PatchBuyProductRequestDto dto){
         this.productPrice = dto.getProductPrice();
     }
 }
