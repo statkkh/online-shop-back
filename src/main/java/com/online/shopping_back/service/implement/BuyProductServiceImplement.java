@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service;
 import com.online.shopping_back.dto.request.buyProduct.PatchBuyProductRequestDto;
 import com.online.shopping_back.dto.request.buyProduct.PostBuyProductRequestDto;
 import com.online.shopping_back.dto.response.ResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.DeleteOrderProductResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.GetOrderProductListResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.PatchOrderProductResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.PostOrderProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.DeleteBuyProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.GetBuyProductListResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.PatchBuyProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.PostBuyProductResponseDto;
 import com.online.shopping_back.entity.BuyProductEntity;
 import com.online.shopping_back.entity.ProductEntity;
 import com.online.shopping_back.repository.BuyProductRepository;
@@ -36,7 +36,7 @@ public class BuyProductServiceImplement implements BuyProductService{
     private final BuyProductRepository  orderProductRepository;
 
     @Override
-    public ResponseEntity<? super GetOrderProductListResponseDto> getOrderProductList(String email, Integer userNumber,
+    public ResponseEntity<? super GetBuyProductListResponseDto> getOrderProductList(String email, Integer userNumber,
             Integer productNumber,Integer buyNumber ) {
 
         List<BuyProductEntity> orderProductEntities = null;
@@ -44,13 +44,13 @@ public class BuyProductServiceImplement implements BuyProductService{
         try {
 
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PostOrderProductResponseDto.notExistUser();
+            if(!existedUser) return PostBuyProductResponseDto.notExistUser();
 
             ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
-            if(productEntity == null) return PostOrderProductResponseDto.notExistProduct();
+            if(productEntity == null) return PostBuyProductResponseDto.notExistProduct();
 
             boolean existedOrder = buyRepository.existsByBuyNumber(buyNumber);
-            if(!existedOrder) return PostOrderProductResponseDto.notExistOrder();
+            if(!existedOrder) return PostBuyProductResponseDto.notExistOrder();
 
             orderProductEntities = orderProductRepository.findByUserNumber(userNumber);
 
@@ -59,21 +59,21 @@ public class BuyProductServiceImplement implements BuyProductService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return GetOrderProductListResponseDto.success(orderProductEntities);
+        return GetBuyProductListResponseDto.success(orderProductEntities);
     }
 
     @Override
-    public ResponseEntity<? super PostOrderProductResponseDto> postOrderProduct(PostBuyProductRequestDto dto,
+    public ResponseEntity<? super PostBuyProductResponseDto> postOrderProduct(PostBuyProductRequestDto dto,
             String email, Integer userNumber, Integer buyNumber, Integer productNumber) {
         try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PostOrderProductResponseDto.notExistUser();
+            if(!existedUser) return PostBuyProductResponseDto.notExistUser();
 
             ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
-            if(productEntity == null) return PostOrderProductResponseDto.notExistProduct();
+            if(productEntity == null) return PostBuyProductResponseDto.notExistProduct();
 
             boolean existedOrder = buyRepository.existsByBuyNumber(buyNumber);
-            if(!existedOrder) return PostOrderProductResponseDto.notExistOrder();
+            if(!existedOrder) return PostBuyProductResponseDto.notExistOrder();
 
             BuyProductEntity orderProductEntity = new BuyProductEntity(dto, userNumber,buyNumber,productNumber);
             orderProductRepository.save(orderProductEntity);
@@ -82,25 +82,25 @@ public class BuyProductServiceImplement implements BuyProductService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return PostOrderProductResponseDto.success();
+        return PostBuyProductResponseDto.success();
     }
 
     @Override
-    public ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(PatchBuyProductRequestDto dto,
+    public ResponseEntity<? super PatchBuyProductResponseDto> patchOrderProduct(PatchBuyProductRequestDto dto,
             String email, Integer userNumber, Integer buyNumber, Integer productNumber) {
         
         try {
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return PatchOrderProductResponseDto.notExistUser();
+            if(!existedUser) return PatchBuyProductResponseDto.notExistUser();
 
             ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
-            if(productEntity == null) return PatchOrderProductResponseDto.notExistProduct();
+            if(productEntity == null) return PatchBuyProductResponseDto.notExistProduct();
 
             boolean existedOrder = buyRepository.existsByBuyNumber(buyNumber);
-            if(!existedOrder) return PatchOrderProductResponseDto.notExistOrder();
+            if(!existedOrder) return PatchBuyProductResponseDto.notExistOrder();
 
             BuyProductEntity orderProductEntity = orderProductRepository.findBybuyProductNumber(dto.getBuyProductNumber());
-            if(orderProductEntity == null) return PatchOrderProductResponseDto.notExistOrderProduct();
+            if(orderProductEntity == null) return PatchBuyProductResponseDto.notExistOrderProduct();
 
             orderProductEntity.patchOrderProduct(dto);
             orderProductRepository.save(orderProductEntity);            
@@ -109,26 +109,26 @@ public class BuyProductServiceImplement implements BuyProductService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }        
-        return PatchOrderProductResponseDto.success();        
+        return PatchBuyProductResponseDto.success();        
     }
 
     @Override
-    public ResponseEntity<? super DeleteOrderProductResponseDto> deleteOrderProduct(String email, Integer userNumber,
+    public ResponseEntity<? super DeleteBuyProductResponseDto> deleteOrderProduct(String email, Integer userNumber,
             Integer buyNumber, Integer productNumber, Integer buyProductNumber) {
         
         try {
 
             boolean existedUser = userRepository.existsByEmail(email);
-            if(!existedUser) return DeleteOrderProductResponseDto.notExistUser();
+            if(!existedUser) return DeleteBuyProductResponseDto.notExistUser();
 
             ProductEntity productEntity = productRepository.findByProductNumber(productNumber);
-            if(productEntity == null) return DeleteOrderProductResponseDto.notExistProduct();
+            if(productEntity == null) return DeleteBuyProductResponseDto.notExistProduct();
 
             boolean existedOrder = buyRepository.existsByBuyNumber(buyNumber);
-            if(!existedOrder) return DeleteOrderProductResponseDto.notExistOrder();       
+            if(!existedOrder) return DeleteBuyProductResponseDto.notExistOrder();       
             
             BuyProductEntity orderProductEntity = orderProductRepository.findBybuyProductNumber(buyProductNumber);
-            if(orderProductEntity == null) return DeleteOrderProductResponseDto.notExistOrderProduct();
+            if(orderProductEntity == null) return DeleteBuyProductResponseDto.notExistOrderProduct();
 
             orderProductRepository.delete(orderProductEntity);
 
@@ -136,7 +136,7 @@ public class BuyProductServiceImplement implements BuyProductService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        return DeleteOrderProductResponseDto.success();
+        return DeleteBuyProductResponseDto.success();
     }
 
 

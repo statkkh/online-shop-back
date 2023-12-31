@@ -1,4 +1,4 @@
-package com.online.shopping_back.dto.response.orderProduct;
+package com.online.shopping_back.dto.response.buyProduct;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,21 +10,26 @@ import com.online.shopping_back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class PatchOrderProductResponseDto extends ResponseDto{
+public class DeleteBuyProductResponseDto extends ResponseDto{
     
-    private PatchOrderProductResponseDto(String code, String messsage){
+    private DeleteBuyProductResponseDto(String code, String messsage){
         super(code, messsage);
     }
 
-    public static ResponseEntity<PatchOrderProductResponseDto> success(){
-        PatchOrderProductResponseDto result = new PatchOrderProductResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+    public static ResponseEntity<DeleteBuyProductResponseDto> success(){
+        DeleteBuyProductResponseDto result = new DeleteBuyProductResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(result);
-    }
+    }        
 
     public static ResponseEntity<ResponseDto> notExistUser(){
         ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_USER, ResponseMessage.NOT_EXIST_USER);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }
+
+    public static ResponseEntity<ResponseDto> notExistManager(){
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_MANAGER, ResponseMessage.NOT_EXIST_MANAGER);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+    }   
     
     public static ResponseEntity<ResponseDto> notExistProduct(){
         ResponseDto result = new ResponseDto(ResponseCode.NOT_FOUND_PRODUCT, ResponseMessage.NOT_FOUND_PRODUCT);
@@ -32,7 +37,7 @@ public class PatchOrderProductResponseDto extends ResponseDto{
     }    
     
     public static ResponseEntity<ResponseDto> notExistOrder(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_ORDER, ResponseMessage.NOT_EXIST_ORDER);
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_BUY, ResponseMessage.NOT_EXIST_BUY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
     }     
 

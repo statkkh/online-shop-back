@@ -1,25 +1,33 @@
-package com.online.shopping_back.dto.response.orderProduct;
+package com.online.shopping_back.dto.response.buyProduct;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.online.shopping_back.common.object.BuyProductListItem;
 
 import com.online.shopping_back.dto.response.ResponseCode;
 import com.online.shopping_back.dto.response.ResponseDto;
 import com.online.shopping_back.dto.response.ResponseMessage;
+import com.online.shopping_back.entity.BuyProductEntity;
+
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import lombok.Getter;
 
 @Getter
-public class PostOrderProductResponseDto extends ResponseDto{
+public class GetBuyProductListResponseDto extends ResponseDto{
     
-    private PostOrderProductResponseDto(String code, String messsage){
-        super(code, messsage);
+    private List<BuyProductListItem> buyProductList;
+
+    private GetBuyProductListResponseDto(String code, String message,List<BuyProductEntity> orderProductEntities){
+        super(code, message); 
+        this.buyProductList = BuyProductListItem.getOrderProductList(orderProductEntities);
     }
 
-    public static ResponseEntity<PostOrderProductResponseDto> success(){
-        PostOrderProductResponseDto result = new PostOrderProductResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+    public static ResponseEntity<GetBuyProductListResponseDto> success(List<BuyProductEntity> orderProductEntities){
+        GetBuyProductListResponseDto result = new GetBuyProductListResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS, orderProductEntities);
         return ResponseEntity.status(HttpStatus.OK).body(result);
-    }    
+    }
 
     public static ResponseEntity<ResponseDto> notExistUser(){
         ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_USER, ResponseMessage.NOT_EXIST_USER);
@@ -37,14 +45,7 @@ public class PostOrderProductResponseDto extends ResponseDto{
     }    
     
     public static ResponseEntity<ResponseDto> notExistOrder(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_ORDER, ResponseMessage.NOT_EXIST_ORDER);
+        ResponseDto result = new ResponseDto(ResponseCode.NOT_EXIST_BUY, ResponseMessage.NOT_EXIST_BUY);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-    }     
-
-
-    public static ResponseEntity<ResponseDto> notExistOrderProduct(){
-        ResponseDto result = new ResponseDto(ResponseCode.NOT_FOUND_ORDER_PRODUCT, ResponseMessage.NOT_FOUND_ORDER_PRODUCT);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
-    }        
-    
+    }         
 }

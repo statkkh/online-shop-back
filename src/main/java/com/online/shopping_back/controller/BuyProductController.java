@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.online.shopping_back.dto.request.buyProduct.PatchBuyProductRequestDto;
 import com.online.shopping_back.dto.request.buyProduct.PostBuyProductRequestDto;
-import com.online.shopping_back.dto.response.buyProduct.DeleteOrderProductResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.GetOrderProductListResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.PatchOrderProductResponseDto;
-import com.online.shopping_back.dto.response.buyProduct.PostOrderProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.DeleteBuyProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.GetBuyProductListResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.PatchBuyProductResponseDto;
+import com.online.shopping_back.dto.response.buyProduct.PostBuyProductResponseDto;
 import com.online.shopping_back.service.BuyProductService;
 
 import jakarta.validation.Valid;
@@ -33,50 +33,50 @@ public class BuyProductController{
     private final BuyProductService orderProductService;
 
     @GetMapping("/{userNumber}/{productNumber}/{buyNumber}")
-    public ResponseEntity< ? super GetOrderProductListResponseDto> getOrderProductList(
+    public ResponseEntity< ? super GetBuyProductListResponseDto> getOrderProductList(
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
         @PathVariable("productNumber") Integer productNumber,
         @PathVariable("buyNumber") Integer buyNumber        
     ){
-        ResponseEntity< ? super GetOrderProductListResponseDto>  response = orderProductService.getOrderProductList(email, userNumber, productNumber, buyNumber);
+        ResponseEntity< ? super GetBuyProductListResponseDto>  response = orderProductService.getOrderProductList(email, userNumber, productNumber, buyNumber);
         return response;
     }
 
 
     @PostMapping("/{userNumber}/{productNumber}/{buyNumber}")
-    public ResponseEntity<? super PostOrderProductResponseDto> postOrderProduct(
+    public ResponseEntity<? super PostBuyProductResponseDto> postOrderProduct(
         @RequestBody @Valid PostBuyProductRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
         @PathVariable("productNumber") Integer productNumber,
         @PathVariable("buyNumber") Integer buyNumber
     ){
-        ResponseEntity<? super PostOrderProductResponseDto>  response = orderProductService.postOrderProduct(dto, email, userNumber, buyNumber, productNumber);
+        ResponseEntity<? super PostBuyProductResponseDto>  response = orderProductService.postOrderProduct(dto, email, userNumber, buyNumber, productNumber);
         return response;
     }
 
     @PatchMapping("/{userNumber}/{productNumber}/{buyNumber}")
-    public ResponseEntity<? super PatchOrderProductResponseDto> patchOrderProduct(
+    public ResponseEntity<? super PatchBuyProductResponseDto> patchOrderProduct(
         @RequestBody @Valid PatchBuyProductRequestDto dto,
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
         @PathVariable("productNumber") Integer productNumber,
         @PathVariable("buyNumber") Integer buyNumber        
     ){
-        ResponseEntity<? super PatchOrderProductResponseDto>  response = orderProductService.patchOrderProduct(dto, email, userNumber, buyNumber, productNumber);
+        ResponseEntity<? super PatchBuyProductResponseDto>  response = orderProductService.patchOrderProduct(dto, email, userNumber, buyNumber, productNumber);
         return response;
     }   
 
     @DeleteMapping("/{userNumber}/{productNumber}/{buyNumber}/{buyProductNumber}")
-    public ResponseEntity<? super  DeleteOrderProductResponseDto> deleteOrderProduct(
+    public ResponseEntity<? super  DeleteBuyProductResponseDto> deleteOrderProduct(
         @AuthenticationPrincipal String email,
         @PathVariable("userNumber") Integer userNumber,
         @PathVariable("productNumber") Integer productNumber,
         @PathVariable("buyNumber") Integer buyNumber,
         @PathVariable("buyProductNumber") Integer buyProductNumber    
     ){
-        ResponseEntity<? super  DeleteOrderProductResponseDto> response = orderProductService.deleteOrderProduct(email, userNumber, buyNumber, productNumber, buyProductNumber);
+        ResponseEntity<? super  DeleteBuyProductResponseDto> response = orderProductService.deleteOrderProduct(email, userNumber, buyNumber, productNumber, buyProductNumber);
         return response;
     }
 
