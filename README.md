@@ -1,10 +1,10 @@
  ## 온라인 쇼핑몰 프로젝트 - 백엔드 
 
- ##### Security, Validation, JPA 
+ ##### 외부 라이러리: Security, Validation, JPA 
  
  ##### Security 
  
- ##### RestAPI에 대해 인증된 유저에게만 특정한 권한도 부여하여 리소스 컨트롤을 가능하게 하기위해서 사용 
+ ##### RestAPI 에 대해 인증된 유저에게만 특정한 권한도 부여하여 리소스 컨트롤을 가능하게 하기위해서 사용 
  
  ##### JPA 
  
@@ -15,11 +15,7 @@
  ##### Validation 
  
  ##### 도메인 규칙이 가득한 엔터티 객체가 복잡해지는 것을 막아주고, 분산된 중복 VALIDATION 코드를 제거해준다. 
- 
- 
- 
- ##### 프로젝트 설치및 실행 방법 
- 
+  
  ##### 개발언어 : Java 17 
  
  ##### 개발환경 : SpringBoot 3.2.0, Gradle 8.5,JPA(Spring Data JPA), Spring Security 
