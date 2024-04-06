@@ -1,6 +1,6 @@
  ## 온라인 쇼핑몰 프로젝트 - 백엔드 
 
- ##### 외부 라이러리: Security, Validation, JPA 
+ ##### 외부 라이브러리: Security, Validation, JPA 
  
  ##### *Security* 
  
